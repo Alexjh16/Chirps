@@ -66,6 +66,51 @@
                             @endif
                         </div>
                         <p class="mt-4 text-lg text-gray-900">{{ $chirp->message }}</p>
+                        <div x-data="{ liked: false, disliked: false }" class="mt-4 flex space-x-6 text-gray-600">
+
+                            <button title="Like" x-on:click="liked = !liked; disliked = false">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition"
+                                    x-bind:class="liked ? 'text-red-500 scale-110' : 'text-gray-600 hover:text-red-500'"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                            </button>
+
+                            <button title="Share" x-on:click="$el.classList.add('scale-110'); setTimeout(() => $el.classList.remove('scale-110'), 150)">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hover:text-blue-500 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="18" cy="5" r="3"></circle>
+                                    <circle cx="6" cy="12" r="3"></circle>
+                                    <circle cx="18" cy="19" r="3"></circle>
+                                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                                </svg>
+                            </button>
+
+                            <div x-data="{ disliked: false }" class="relative group">
+                                <button
+                                    @click="disliked = !disliked"
+                                    class="p-2 rounded-full transition-all duration-300"
+                                    :class="disliked ? 'text-black scale-110' : 'text-gray-600 hover:text-gray-500'"
+                                    aria-label="Dislike"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                                        <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                                        <path d="M8 16s1.5-2 4-2 4 2 4 2"></path>
+                                    </svg>
+                                </button>
+
+                                <!-- Tooltip -->
+                                <span
+                                    class="absolute bottom-10 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-all duration-200"
+                                >
+                                    Dislike
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endforeach
